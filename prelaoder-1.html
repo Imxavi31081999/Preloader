@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loader-line {
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        .loader-text {
+            font-size: 20vw;
+            line-height: 1;
+            width: 24.8vW;
+            bottom: 2px;
+            left: 44px;
+            position: absolute;
+            font-weight: bold;
+
+        }
+
+        .qodef-completed {
+            -webkit-transform: translateX(20vW);
+            -ms-transform: translateX(20vW);
+            transform: translateX(20vW);
+            -webkit-transition: -webkit-transform .4s cubic-bezier(.46, .03, .52, .96) 0s;
+            transition: -webkit-transform .4s cubic-bezier(.46, .03, .52, .96) 0s;
+            transition: transform .4s cubic-bezier(.46, .03, .52, .96) 0s;
+            transition: transform .4s cubic-bezier(.46, .03, .52, .96) 0s, -webkit-transform .4s cubic-bezier(.46, .03, .52, .96) 0s
+        }
+
+        body {
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader-container">
+        <div class="loader-line"></div>
+        <div class="loader-text" id="loader-text">0%</div>
+    </div>
+
+    <!-- Your page content goes here -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loaderText = document.getElementById("loader-text");
+            let progress = 0;
+
+            function updateLoader() {
+                progress += 1;
+                loaderText.innerText = `${progress}%`;
+
+                if (progress < 100) {
+                    requestAnimationFrame(updateLoader);
+                } else {
+                    // Hide loader when loading is complete
+                    document.querySelector(".loader-container").style.display = "none";
+                    document.body.style.overflow = "auto"; // Restore scroll
+                }
+            }
+
+            // Simulate loading progress
+            updateLoader();
+        });
+    </script>
+</body>
+
+</html>
